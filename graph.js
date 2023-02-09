@@ -12,36 +12,85 @@ class Node {
 
 class Graph {
   constructor() {
-    this.nodes = new Set();
+    this.nodes = new Set(); // {a, b, c}
   }
 
   /** add Node instance and add it to nodes property on graph. */
-  addVertex(vertex) { }
+
+  addVertex(vertex) {
+    // this.nodes.add(new Node(vertex));
+    this.nodes.add(vertex);
+  }
 
   /** add array of new Node instances and adds to them to nodes property. */
-  addVertices(vertexArray) { }
+
+  addVertices(vertexArray) {
+    for (const vertex of vertexArray) {
+      this.addVertex(vertex);
+    }
+  }
 
   /** add edge between vertices v1,v2 */
-  addEdge(v1, v2) { }
+
+  addEdge(v1, v2) {
+    // We don't have to check if already adjacent because the
+    // set guarantees them to be unique/no duplicates
+    v1.adjacent.add(v2);
+    v2.adjacent.add(v1);
+  }
 
   /** remove edge between vertices v1,v2 */
-  removeEdge(v1, v2) { }
+
+  removeEdge(v1, v2) {
+    v1.adjacent.delete(v2);
+    v2.adjacent.delete(v1);
+  }
 
   /** remove vertex from graph:
    *
    * - remove it from nodes property of graph
    * - update any adjacency lists using that vertex
    */
-  removeVertex(vertex) { }
+
+  removeVertex(vertex) {
+    for (const adjNode of vertex.adjacent) {
+      adjNode.adjacent.delete(vertex);
+    }
+    this.nodes.delete(vertex);
+  }
 
   /** traverse graph with DFS and returns array of Node values */
-  depthFirstSearch(start) { }
+
+  depthFirstSearch(start) {
+    const stack = [start];
+    const seen = new Set(stack);
+
+    while (stack.length) {
+
+      let currentNode = stack.pop();
+      seen.add(currentNode);
+
+      for (const adj of currentNode.adjacent) {
+        if (!seen.has(adj)) {
+          stack.push(adj);
+        }
+      }
+    }
+    const results = [];
+
+    for (const node of seen) {
+      results.push(node.value);
+    }
+    return results;
+  }
 
   /** traverse graph with BDS and returns array of Node values */
-  breadthFirstSearch(start) { }
+  breadthFirstSearch(start) {
+
+  }
 
   /** find the distance of the shortest path from the start vertex to the end vertex */
   distanceOfShortestPath(start, end) { }
 }
 
-module.exports = { Graph, Node }
+module.exports = { Graph, Node };

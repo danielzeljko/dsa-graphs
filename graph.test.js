@@ -263,15 +263,15 @@ describe("BFS", function () {
 
     let results = graph.breadthFirstSearch(S);
 
-    expect(results.indexOf("P") < results.indexOf("Y"));
-    expect(results.indexOf("P") < results.indexOf("V"));
-    expect(results.indexOf("P") < results.indexOf("Q"));
-    expect(results.indexOf("U") < results.indexOf("Y"));
-    expect(results.indexOf("U") < results.indexOf("V"));
-    expect(results.indexOf("U") < results.indexOf("Q"));
-    expect(results.indexOf("X") < results.indexOf("Y"));
-    expect(results.indexOf("X") < results.indexOf("V"));
-    expect(results.indexOf("X") < results.indexOf("Q"));
+    expect(results.indexOf("P") < results.indexOf("Y")).toBe(true);
+    expect(results.indexOf("P") < results.indexOf("V")).toBe(true);
+    expect(results.indexOf("P") < results.indexOf("Q")).toBe(true);
+    expect(results.indexOf("U") < results.indexOf("Y")).toBe(true);
+    expect(results.indexOf("U") < results.indexOf("V")).toBe(true);
+    expect(results.indexOf("U") < results.indexOf("Q")).toBe(true);
+    expect(results.indexOf("X") < results.indexOf("Y")).toBe(true);
+    expect(results.indexOf("X") < results.indexOf("V")).toBe(true);
+    expect(results.indexOf("X") < results.indexOf("Q")).toBe(true);
   });
 });
 
