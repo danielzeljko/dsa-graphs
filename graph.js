@@ -84,13 +84,52 @@ class Graph {
     return results;
   }
 
-  /** traverse graph with BDS and returns array of Node values */
+  /** traverse graph with BFS and returns array of Node values */
   breadthFirstSearch(start) {
 
+    const queue = [start];
+    const seen = new Set(queue);
+
+    while (queue.length) {
+      let currentNode = queue.shift();
+      seen.add(currentNode);
+
+      for (let adj of currentNode.adjacent) {
+        if (!seen.has(adj)) {
+          queue.push(adj);
+        }
+      }
+    }
+    const results = [];
+
+    for (const node of seen) {
+      results.push(node.value);
+    }
+
+    return results;
   }
 
   /** find the distance of the shortest path from the start vertex to the end vertex */
-  distanceOfShortestPath(start, end) { }
+  distanceOfShortestPath(start, end) {
+
+    let depth = 0;
+    const queue = [[start, depth]];
+    const seen = new Set([start]);
+
+    while(queue.length) {
+      let [currentNode, depth] = queue.shift();
+
+      seen.add(currentNode);
+
+      if (currentNode === end) return depth;
+
+      for(let adj of currentNode.adjacent) {
+        if(!seen.has(adj)) {
+          queue.push([adj, depth + 1]);
+        }
+      }
+    }
+  }
 }
 
 module.exports = { Graph, Node };
