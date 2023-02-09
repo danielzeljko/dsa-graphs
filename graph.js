@@ -61,21 +61,40 @@ class Graph {
 
   /** traverse graph with DFS and returns array of Node values */
 
-  depthFirstSearch(start) {
-    const stack = [start];
-    const seen = new Set(stack);
+  // depthFirstSearch(start) {
+  //   const stack = [start];
+  //   const seen = new Set(stack);
 
-    while (stack.length) {
+  //   while (stack.length) {
 
-      let currentNode = stack.pop();
-      seen.add(currentNode);
+  //     let currentNode = stack.pop();
+  //     seen.add(currentNode);
 
-      for (const adj of currentNode.adjacent) {
-        if (!seen.has(adj)) {
-          stack.push(adj);
-        }
+  //     for (const adj of currentNode.adjacent) {
+  //       if (!seen.has(adj)) {
+  //         stack.push(adj);
+  //       }
+  //     }
+  //   }
+  //   const results = [];
+
+  //   for (const node of seen) {
+  //     results.push(node.value);
+  //   }
+  //   return results;
+  // }
+
+  depthFirstSearch(start, seen = new Set([start])) {
+    //base case => if node is in seen, return
+    //progress => add each node to seen set
+
+    for(const adj of start.adjacent) {
+      if (!seen.has(adj)) {
+        seen.add(adj);
+        this.depthFirstSearch(adj, seen)
       }
     }
+
     const results = [];
 
     for (const node of seen) {
